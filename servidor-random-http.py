@@ -8,7 +8,7 @@ Jesus M. Gonzalez-Barahona and Gregorio Robles
 {jgb, grex} @ gsyc.es
 SAT and SARO subjects (Universidad Rey Juan Carlos)
 """
-
+# Cristina del Río Vergel
 import socket
 import random
 
@@ -27,7 +27,6 @@ mySocket.listen(5)
 
 # Accept connections, read incoming data, and answer back an HTML page
 #  (in an almost-infinite loop; the loop can be stopped with Ctrl+C)
-
 try:
     while True:
         print('Waiting for connections')
@@ -35,16 +34,14 @@ try:
         print('Request received:')
         print(recvSocket.recv(2048))
         print('Answering back...')
-        url= str(random.randint(0, 1000000000000000))
-        recvSocket.send(bytes(b"HTTP/1.1 200 OK\r\n\r\n" +
+        url = str(random.randint(0, 1000000000000000))
+        print('Answering back...')
+        recvSocket.send(bytes("HTTP/1.1 200 OK\r\n\r\n" +
                         "<html><body><h1>Hola</h1>" +
-                        "<a href=" +
-                        url +
-                        ">Dame otra<a/>" +
-                        "</p>" +
+                        "</p><a href=" + url + ">Dame otra</a>" +
                         "</body></html>" +
-                        "\r\n", "utf-8"))
+                        "\r\n", 'utf-8'))
         recvSocket.close()
 except KeyboardInterrupt:
     print("Closing binded socket")
-    mySocket.close()
+mySocket.close()
