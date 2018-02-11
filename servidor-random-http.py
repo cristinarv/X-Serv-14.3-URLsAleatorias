@@ -10,6 +10,7 @@ SAT and SARO subjects (Universidad Rey Juan Carlos)
 """
 
 import socket
+import random
 
 # Create a TCP objet socket and bind it to a port
 # Port should be 80, but since it needs root privileges,
@@ -19,7 +20,7 @@ mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Let the port be reused if no process is actually using it
 mySocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 # Bind to the address corresponding to the main name of the host
-mySocket.bind((socket.gethostname(), 1235))
+mySocket.bind(('localhost', 1234))
 
 # Queue a maximum of 5 TCP connection requests
 mySocket.listen(5)
@@ -34,13 +35,15 @@ try:
         print('Request received:')
         print(recvSocket.recv(2048))
         print('Answering back...')
-        recvSocket.send(b"HTTP/1.1 200 OK\r\n\r\n" +
-                        b"<html><body><h1>Hello World!</h1>" +
-                        b"<p>And in particular hello to you, " +
-                        bytes(address[0], 'utf-8') +
-                        b"</p>" +
-                        b"</body></html>" +
-                        b"\r\n")
+        url= str(random.randint(0, 1000000000000000))
+        recvSocket.send(bytes(b"HTTP/1.1 200 OK\r\n\r\n" +
+                        "<html><body><h1>Hola</h1>" +
+                        "<a href=" +
+                        url +
+                        ">Dame otra<a/>" +
+                        "</p>" +
+                        "</body></html>" +
+                        "\r\n", "utf-8"))
         recvSocket.close()
 except KeyboardInterrupt:
     print("Closing binded socket")
