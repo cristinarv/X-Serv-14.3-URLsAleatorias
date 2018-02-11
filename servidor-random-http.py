@@ -37,10 +37,10 @@ try:
         url = str(random.randint(0, 1000000000000000))
         print('Answering back...')
         recvSocket.send(bytes("HTTP/1.1 200 OK\r\n\r\n" +
-                        "<html><body><h1>Hola</h1>" +
-                        "</p><a href=" + url + ">Dame otra</a>" +
-                        "</body></html>" +
-                        "\r\n", 'utf-8'))
+                              "<html><body><h1>Hola</h1> " +
+                              "</p><a href=" + url + ">Dame otra</a>" +
+                              "</body></html>" +
+                              "\r\n", "utf-8"))
         recvSocket.close()
 except KeyboardInterrupt:
     print("Closing binded socket")
